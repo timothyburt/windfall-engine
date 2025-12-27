@@ -81,6 +81,9 @@ class MainMenuScene(BaseScene):
 		renderer.draw_at(target_x, mid_y - 5, "║", color=term.green)
 		renderer.draw_at(target_x, mid_y - 4, "▼", color=term.green)
 
+		# Display version near the header or footer
+		renderer.draw_at(2, 1, f"CORE VER: {self.version}", color=renderer.term.darkgray)
+
 		# --- FOOTER ---
 		footer = "A / D to Navigate | ENTER to Jack-In"
 		renderer.draw_at(mid_x - len(footer)//2, term.height - 3, footer, color=term.darkgray)
