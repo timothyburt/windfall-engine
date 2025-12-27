@@ -1,5 +1,5 @@
 from blessed import Terminal
-from windfall.core import WindfallEvent, EventType
+from windfall.engine.events.events import WindfallEvent, EventType
 
 class TUIRenderer:
 	def __init__(self):
@@ -36,7 +36,7 @@ class TUIRenderer:
 
 	def _map_key_to_event(self, key):
 		"""Translates raw terminal input into WindfallEvents."""
-		from windfall.events import WindfallEvent, EventType
+		from windfall.engine.events.events import WindfallEvent, EventType
 
 		# Navigation
 		if key.name == "KEY_UP" or key == "w":

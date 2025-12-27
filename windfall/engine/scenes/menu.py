@@ -1,5 +1,5 @@
-from windfall.scenes.base import BaseScene
-from windfall.core import EventType
+from windfall.engine import BaseScene
+from windfall.engine.events.events import EventType
 
 class MainMenuScene(BaseScene):
 	def __init__(self, core):
@@ -23,7 +23,7 @@ class MainMenuScene(BaseScene):
 		elif event.type == EventType.MENU_SELECT:
 			self._execute_selection()
 		elif event.type == EventType.QUIT:
-			from windfall.core import WindfallEvent
+			from windfall.engine.events.events import WindfallEvent
 			self.core.post_event(WindfallEvent(EventType.QUIT))
 
 	def _execute_selection(self):

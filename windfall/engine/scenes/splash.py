@@ -1,6 +1,6 @@
 import time
-from windfall.scenes.base import BaseScene
-from windfall.events import EventType
+from windfall.engine import BaseScene
+from windfall.engine.events.events import EventType
 
 # --- UI COMPONENTS ---
 
@@ -122,5 +122,5 @@ class SplashScene(BaseScene):
 						color=renderer.term.darkgray)
 
 	def _transition(self):
-		from windfall.scenes.menu import MainMenuScene
+from windfall.engine import MainMenuScene
 		self.core.change_scene(MainMenuScene(self.core))

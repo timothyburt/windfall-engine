@@ -1,6 +1,6 @@
 from collections import deque
-from .events import WindfallEvent, EventType
-from windfall.scenes.splash import SplashScene
+from windfall.engine.events.events import WindfallEvent, EventType
+from windfall.engine import SplashScene
 
 class WindfallCore:
 	def __init__(self, renderer):

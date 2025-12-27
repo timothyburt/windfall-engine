@@ -1,5 +1,5 @@
 import unittest
-from windfall.core import WindfallCore
+from windfall.engine import WindfallCore
 
 class TestEngineCore(unittest.TestCase):
     def test_initial_state(self):

@@ -1,6 +1,6 @@
 import unittest
-from windfall.core import WindfallCore
-from windfall.events import WindfallEvent, EventType
+from windfall.engine import WindfallCore
+from windfall.engine.events.events import WindfallEvent, EventType
 
 class TestNervousSystem(unittest.TestCase):
     def setUp(self):

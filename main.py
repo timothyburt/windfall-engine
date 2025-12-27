@@ -1,6 +1,6 @@
 import time
-from windfall.renderers.tui import TUIRenderer
-from windfall.core import WindfallCore
+from windfall.engine.renderers.tui import TUIRenderer
+from windfall.engine import WindfallCore
 
 def main():
 	# 1. Initialize the components
