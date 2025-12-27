@@ -26,5 +26,10 @@ jobs:
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
           git add README.md
-          git commit -m "chore: update readme version to ${{ steps.get_version.outputs.VERSION }}"
-          git push
+          # Check for changes, if any, push specifically to the main branch
+          if ! git diff --cached --exit-code; then
+            git commit -m "chore: update readme version"
+            git push origin HEAD:main
+          else
+            echo "No changes to commit"
+          fi
