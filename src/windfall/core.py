@@ -1,3 +1,5 @@
+import time
+
 class WindfallCore:
     def __init__(self, renderer):
         self.renderer = renderer
@@ -9,7 +11,11 @@ class WindfallCore:
         
         try:
             while self.running:
-                # This is where game logic will go
                 self.renderer.render("Windfall Engine: TUI Mode Active")
+                
+                # Add a small delay (approx 60 FPS)
+                time.sleep(1/60) 
+        except KeyboardInterrupt:
+            self.running = False
         finally:
             self.renderer.teardown()
