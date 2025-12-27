@@ -9,11 +9,22 @@ class TUIRenderer:
         print(self.term.hide_cursor())
 
     def render(self, message):
-        # Clears the screen and prints in the middle
         print(self.term.clear())
+        # Center the text
         with self.term.location(self.term.width // 2 - len(message) // 2, self.term.height // 2):
             print(self.term.bold_teal(message))
+        
+        # Add a footer instruction
+        with self.term.location(0, self.term.height - 1):
+            print(self.term.center("Press 'q' to Exit Safely"))
+
+    def get_input(self):
+        # cbreak() allows us to read one char at a time
+        # timeout=0 makes it non-blocking
+        with self.term.cbreak():
+            val = self.term.inkey(timeout=0)
+            return val.lower() if val else None
 
     def teardown(self):
-        print(self.term.exit_fullscreen())
         print(self.term.normal_cursor())
+        print(self.term.exit_fullscreen())

@@ -11,11 +11,18 @@ class WindfallCore:
         
         try:
             while self.running:
+                # 1. Process Input
+                key = self.renderer.get_input()
+                if key == 'q':
+                    self.running = False
+                
+                # 2. Update Logic (Future home of player movement, etc.)
+                
+                # 3. Render
                 self.renderer.render("Windfall Engine: TUI Mode Active")
                 
-                # Add a small delay (approx 60 FPS)
                 time.sleep(1/60) 
-        except KeyboardInterrupt:
-            self.running = False
         finally:
+            # This ensures even if it crashes, the terminal is fixed
             self.renderer.teardown()
+            print("Windfall Engine shut down safely. Stoke level maintained.")
