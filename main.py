@@ -5,23 +5,24 @@ from windfall.core import WindfallCore
 def main():
 	# 1. Initialize the components
 	tui = TUIRenderer()
-	core = WindfallCore()
+	core = WindfallCore(tui)
 	
 	tui.setup()
 	
 	try:
 		while core.running:
-			event = tui.get_input()
-			if event:
-				core.post_event(event)
+			# 1. Capture input
+			event = tui.get_input() 
+			if event: core.post_event(event)
 
-			core.update()
+			# 2. Run the logic pulse
+			core.update() 
 
-			# Render whatever scene is currently active
+			# 3. Draw the frame
 			if core.active_scene:
 				core.active_scene.render(tui)
 
-			time.sleep(0.03)
+			time.sleep(0.016)
 
 	except KeyboardInterrupt:
 		pass
