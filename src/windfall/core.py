@@ -4,6 +4,9 @@ class WindfallCore:
     def __init__(self, renderer):
         self.renderer = renderer
         self.running = False
+        self.menu_options = ["Start Engine", "Settings", "Credits", "Exit"]
+        self.selected_index = 0
+        self.needs_redraw = True # The "Dirty Flag"
 
     def run(self):
         self.running = True
@@ -11,18 +14,22 @@ class WindfallCore:
         
         try:
             while self.running:
-                # 1. Process Input
+                if self.needs_redraw:
+                    self.renderer.render_menu(self.menu_options, self.selected_index)
+                    self.needs_redraw = False
+
                 key = self.renderer.get_input()
-                if key == 'q':
+                
+                # Navigation Logic
+                if key == 'w' or key == self.renderer.term.KEY_UP:
+                    self.selected_index = (self.selected_index - 1) % len(self.menu_options)
+                    self.needs_redraw = True
+                elif key == 's' or key == self.renderer.term.KEY_DOWN:
+                    self.selected_index = (self.selected_index + 1) % len(self.menu_options)
+                    self.needs_redraw = True
+                elif key == 'q':
                     self.running = False
                 
-                # 2. Update Logic (Future home of player movement, etc.)
-                
-                # 3. Render
-                self.renderer.render("Windfall Engine: TUI Mode Active")
-                
-                time.sleep(1/60) 
+                time.sleep(0.01) 
         finally:
-            # This ensures even if it crashes, the terminal is fixed
             self.renderer.teardown()
-            print("Windfall Engine shut down safely. Stoke level maintained.")
