@@ -1,4 +1,4 @@
-# ![Windfall Engine Banner](assets/banner.png)
+# ![Windfall Engine Banner](assets/banner.jpg)
 
 ## 🌬️ Windfall Engine
 **The Multi-Modal Game Engine for Python.**
