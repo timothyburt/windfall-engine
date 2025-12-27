@@ -1,0 +1,33 @@
+name: 🏗 Feature Blueprint
+description: Design a new engine system before it enters the Forge.
+title: "[BLUEPRINT]: "
+labels: ["blueprint"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        ## 🧠 The Architect's Vision
+        Define the logic before we strike the iron.
+  - type: input
+    id: goal
+    attributes:
+      label: What is the goal?
+      placeholder: e.g., Handle keyboard input via the event queue
+    validations:
+      required: true
+  - type: textarea
+    id: logic
+    attributes:
+      label: Technical Logic & Data Structures
+      description: What data structures (List, Deque, Dict) will we use?
+      placeholder: |
+        - Use `keyboard` library to listen for events.
+        - Map keys to `EventType` enums.
+  - type: checkboxes
+    id: forge_prep
+    attributes:
+      label: Forge Readiness
+      options:
+        - label: I have defined the necessary Enums.
+        - label: I know which core components will be affected.
+        - label: I have a plan for unit testing this logic.
