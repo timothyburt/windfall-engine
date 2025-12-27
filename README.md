@@ -6,7 +6,7 @@
 Windfall is a flexible, light-weight game engine designed to bridge the gap between retro terminal interfaces and modern graphical displays. Build your game logic once, and deploy it across three distinct modes.
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-teal.svg)](https://opensource.org/licenses/MIT)
-![Version](https://img.shields.io/github/json/query?url=https%3A%2F%2Fraw.githubusercontent.com%2Ftimothyburt%2Fwindfall-engine%2Fmain%2Fupdates%2Fversion.json&query=%24.version&label=version&style=for-the-badge&color=blue)
+![Version](https://img.shields.io/badge/dynamic/json?url=https%3A%2F%2Fraw.githubusercontent.com%2Ftimothyburt%2Fwindfall-engine%2Fmain%2Fupdates%2Fversion.json&query=%24.version&label=version&style=for-the-badge&color=blue)
 
 ---
 
