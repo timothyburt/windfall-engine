@@ -7,10 +7,9 @@ class TUIRenderer:
     def setup(self):
         print(self.term.enter_fullscreen())
         print(self.term.hide_cursor())
-        print(self.term.clear()) # Clear once at the start
+        print(self.term.clear())
 
     def render_menu(self, options, selected_index):
-        # We only draw the menu at the center
         cx, cy = self.term.width // 2, self.term.height // 2
         
         # Header
@@ -19,15 +18,26 @@ class TUIRenderer:
 
         # Menu Options
         for i, option in enumerate(options):
-            color = self.term.black_on_teal if i == selected_index else self.term.normal
-            text = f" > {option} < " if i == selected_index else f"   {option}   "
-            print(self.term.move_xy(cx - 10, cy + i) + color(text))
+            # The Fix: Use format strings to avoid the 'not callable' error
+            if i == selected_index:
+                text = f"{self.term.black_on_teal} > {option} < {self.term.normal}"
+            else:
+                text = f"{self.term.normal}   {option}   "
+            
+            print(self.term.move_xy(cx - 10, cy + i) + text)
 
         # Footer
-        footer = "W/S to Navigate | Q to Quit"
+        footer = "W/S to Navigate | ENTER to Select | Q to Quit"
         print(self.term.move_xy(cx - len(footer)//2, self.term.height - 2) + self.term.darkgray(footer))
 
     def get_input(self):
         with self.term.cbreak():
-            val = self.term.inkey(timeout=0.05) # Small timeout for responsiveness
-            return val.code if val.is_sequence else val
+            val = self.term.inkey(timeout=0.1)
+            # Handle both string characters and special codes (like Enter)
+            if val.is_sequence:
+                return val.code
+            return val.lower() if val else None
+
+    def teardown(self):
+        print(self.term.normal_cursor())
+        print(self.term.exit_fullscreen())
