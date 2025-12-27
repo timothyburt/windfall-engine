@@ -12,6 +12,16 @@ class WindfallCore:
 		self.selected_index = 0
 		self.needs_redraw = True
 		
+	# --- ADD THIS: The entry gate ---
+	def post_event(self, event: WindfallEvent):
+		"""Standard way to inject events into the engine."""
+		self.event_queue.append(event)
+
+	# --- ADD THIS: The public update call ---
+	def update(self):
+		"""Process one tick of the engine."""
+		self._process_events()
+
 	def _process_events(self):
 		"""Drains the queue and directs traffic."""
 		while self.event_queue:
