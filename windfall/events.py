@@ -10,6 +10,8 @@ class EventType(Enum):
     # Input/Navigation Events
     MENU_UP = auto()
     MENU_DOWN = auto()
+    MENU_LEFT = auto()
+    MENU_RIGHT = auto()
     MENU_SELECT = auto()
 
 @dataclass

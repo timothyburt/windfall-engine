@@ -10,49 +10,50 @@ class TUIRenderer:
 		print(self.term.hide_cursor())
 		print(self.term.clear())
 
-	def render_menu(self, options, selected_index):
-		cx, cy = self.term.width // 2, self.term.height // 2
-		
-		# Header
-		print(self.term.move_xy(cx - 10, cy - 4) + self.term.bold_teal("WINDFALL ENGINE"))
-		print(self.term.move_xy(cx - 12, cy - 3) + self.term.darkgray("─" * 24))
+	def clear(self):
+		"""Wipes the terminal screen for the next frame."""
+		# Using home + clear ensures we don't get flickering or ghosting
+		print(self.term.home + self.term.clear, end="", flush=True)
 
-		# Menu Options
-		for i, option in enumerate(options):
-			# The Fix: Use format strings to avoid the 'not callable' error
-			if i == selected_index:
-				text = f"{self.term.black_on_teal} > {option} < {self.term.normal}"
-			else:
-				text = f"{self.term.normal}   {option}   "
-			
-			print(self.term.move_xy(cx - 10, cy + i) + text)
-
-		# Footer
-		footer = "W/S to Navigate | ENTER to Select | Q to Quit"
-		print(self.term.move_xy(cx - len(footer)//2, self.term.height - 2) + self.term.darkgray(footer))
+	def draw_at(self, x, y, text, color=None):
+		"""Draws text at coordinates. Resets terminal state to prevent color bleeding."""
+		with self.term.location(x, y):			
+			paint = color if color else self.term.normal
+			# The structure {RESET}{NEW_COLOR}{TEXT}{RESET} is the industry standard for TUIs
+			print(f"{self.term.normal}{paint}{text}{self.term.normal}", end="", flush=True)
 
 	def get_input(self):
+		"""Returns a WindfallEvent if a key is pressed, otherwise None."""
 		with self.term.cbreak():
-			val = self.term.inkey(timeout=0.1)
-			
+			val = self.term.inkey(timeout=0) # Non-blocking is mandatory here
 			if not val:
 				return None
-
-			# Translation Layer: Hardware -> Engine Event
-			if val.lower() == 'w' or val.code == self.term.KEY_UP:
-				return WindfallEvent(EventType.MENU_UP)
-			
-			if val.lower() == 's' or val.code == self.term.KEY_DOWN:
-				return WindfallEvent(EventType.MENU_DOWN)
-			
-			if val.code == self.term.KEY_ENTER or val == '\n':
-				return WindfallEvent(EventType.MENU_SELECT)
-			
-			if val.lower() == 'q':
-				return WindfallEvent(EventType.QUIT)
-
-			return None
+			return self._map_key_to_event(val)
 
 	def teardown(self):
 		print(self.term.normal_cursor())
 		print(self.term.exit_fullscreen())
+
+	def _map_key_to_event(self, key):
+		"""Translates raw terminal input into WindfallEvents."""
+		from windfall.events import WindfallEvent, EventType
+
+		# Navigation
+		if key.name == "KEY_UP" or key == "w":
+			return WindfallEvent(EventType.MENU_UP)
+		if key.name == "KEY_DOWN" or key == "s":
+			return WindfallEvent(EventType.MENU_DOWN)
+		if key.name == "KEY_LEFT" or key == "a":
+			return WindfallEvent(EventType.MENU_LEFT)
+		if key.name == "KEY_RIGHT" or key == "d":
+			return WindfallEvent(EventType.MENU_RIGHT)
+
+		# Selection / Interaction
+		if key.name == "KEY_ENTER" or key == "\n" or key == "\r":
+			return WindfallEvent(EventType.MENU_SELECT)
+
+		# System
+		if key == "q" or key == "Q" or key.name == "KEY_ESCAPE":
+			return WindfallEvent(EventType.QUIT)
+
+		return None
