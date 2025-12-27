@@ -11,7 +11,7 @@ Windfall is a flexible, light-weight game engine designed to bridge the gap betw
 
 | Version | History | Roadmap |
 | :--- | :--- | :--- |
-| ![Version](https://img.shields.io/badge/dynamic/json?url=https%3A%2F%2Fraw.githubusercontent.com%2Ftimothyburt%2Fwindfall-engine%2Fmain%2Fupdates%2Fversion.json&query=%24.version&label=version&style=for-the-badge&color=blue) | [![History](https://img.shields.io/badge/Changelog-View_History-orange?style=for-the-badge&logo=gitbook&logoColor=white)](./CHANGELOG.md) | ![Roadmap](https://img.shields.io/badge/Roadmap-Phase_2:_Core-green?style=for-the-badge&logo=target) |
+| ![Version](https://img.shields.io/badge/dynamic/json?url=https%3A%2F%2Fraw.githubusercontent.com%2Ftimothyburt%2Fwindfall-engine%2Fmain%2Fupdates%2Fversion.json&query=%24.version&label=version&style=for-the-badge&color=blue) | [![History](https://img.shields.io/badge/Changelog-View_History-orange?style=for-the-badge&logo=gitbook&logoColor=white)](./updates/changelog.md) | ![Roadmap](https://img.shields.io/badge/Roadmap-Phase_2:_Core-green?style=for-the-badge&logo=target) |
 
 ### 🚀 The Vision: One Core, Three Renderers
 Windfall allows developers to focus on "The Brain" of their game while providing swappable "Eyes" for different platforms:
