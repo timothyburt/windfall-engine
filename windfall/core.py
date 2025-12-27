@@ -17,10 +17,18 @@ class WindfallCore:
 		"""Standard way to inject events into the engine."""
 		self.event_queue.append(event)
 
-	# --- ADD THIS: The public update call ---
 	def update(self):
-		"""Process one tick of the engine."""
-		self._process_events()
+		while not self.event_queue.empty():
+			event = self.event_queue.get()
+			
+			if event.type == EventType.MENU_UP:
+				self.selected_index = max(0, self.selected_index - 1)
+				
+			elif event.type == EventType.MENU_DOWN:
+				self.selected_index = min(len(self.menu_options) - 1, self.selected_index + 1)
+				
+			elif event.type == EventType.QUIT:
+				self.running = False  # This breaks the 'while core.running' loop in main.py
 
 	def _process_events(self):
 		"""Drains the queue and directs traffic."""
