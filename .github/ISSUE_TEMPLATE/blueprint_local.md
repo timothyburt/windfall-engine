@@ -1,8 +1,8 @@
 ---
 name: 🏗 Blueprint (Local)
-about: Rapidly spin up a task with auto-labels.
+about: Create a blueprint that lands in the Todo bin.
 title: "[BLUEPRINT]: "
-labels: ["blueprint", "forge"]
+labels: ["blueprint"]
 assignees: ["timothyburt"]
 ---
 
